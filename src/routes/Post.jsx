@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom'
-import { formatDistance } from 'date-fns'
 import Comments from '../components/Comments'
+import { apiUrl } from '../utils'
 
 export async function action({ params, request }) {
   try {
@@ -11,7 +11,7 @@ export async function action({ params, request }) {
     }
 
     const response = await fetch(
-      `http://localhost:3000/api/v1/posts/${params.postId}/comments`,
+      `${apiUrl}/posts/${params.postId}/comments`,
       {
         method: 'POST',
         headers: {
@@ -28,7 +28,7 @@ export async function action({ params, request }) {
 
 export async function loader({ params }) {
   const postResponse = await fetch(
-    `http://localhost:3000/api/v1/posts/${params.postId}`
+    `${apiUrl}/posts/${params.postId}`
   )
 
   if (!postResponse.ok) {
@@ -39,7 +39,7 @@ export async function loader({ params }) {
   }
 
   const commentsResponse = await fetch(
-    `http://localhost:3000/api/v1/posts/${params.postId}/comments`
+    `${apiUrl}/posts/${params.postId}/comments`
   )
 
   const post = await postResponse.json()

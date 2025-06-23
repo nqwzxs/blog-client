@@ -1,9 +1,10 @@
 import { useLoaderData } from 'react-router-dom'
 import PostCard from '../components/PostCard'
+import { apiUrl } from '../utils'
 
 export async function loader() {
   try {
-    const response = await fetch('http://localhost:3000/api/v1/posts')
+    const response = await fetch(`${apiUrl}/posts`)
     const posts = await response.json()
     return posts
   } catch (error) {
